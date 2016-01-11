@@ -14,6 +14,6 @@ plot1 <- function() {
   hist(feb_data$Global_active_power, main = "Global Active Power", xlab = "Global Active Power (kilowatts)", col = "red")
   
   #copy the histogram in the viewer to a PNG file
-  dev.copy(png,'plot1.png')
+  dev.copy(png,'plot1.png', width = 480, height = 480)
   dev.off()
 }
