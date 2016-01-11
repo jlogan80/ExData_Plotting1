@@ -7,8 +7,17 @@ plot1 <- function() {
   data <- read.table(unz(temp, "household_power_consumption.txt"), sep = ";", na.strings = "?", header = TRUE)
   
   #subset the data to include only the first two days of February 2007
-  data$Date <- as.Date(data$Date, format = "%d/%m/%y")
   feb_data <- subset(data, Date == "1/2/2007" | Date == "2/2/2007")
+  
+  #reformat columns to proper values
+  feb_data$Date <- as.Date(feb_data$Date, format = "%d/%m/%y")
+  feb_data$Global_active_power <- as.numeric(as.character(feb_data$Global_active_power))
+  feb_data$Global_reactive_power <- as.numeric(as.character(feb_data$Global_reactive_power))
+  feb_data$Voltage <- as.numeric(as.character(feb_data$Voltage))
+  feb_data$day_time <- strptime(paste(feb_data$Date, feb_data$Time, sep=" "), "%d/%m/%Y %H:%M:%S")
+  feb_data$Sub_metering_1 <- as.numeric(as.character(feb_data$Sub_metering_1))
+  feb_data$Sub_metering_2 <- as.numeric(as.character(feb_data$Sub_metering_2))
+  feb_data$Sub_metering_3 <- as.numeric(as.character(feb_data$Sub_metering_3))
   
   #create the histogram with red bars, a title of "Global Active Power", and a x-axis label of "Global Active Power (kilowatts)"
   hist(feb_data$Global_active_power, main = "Global Active Power", xlab = "Global Active Power (kilowatts)", col = "red")
