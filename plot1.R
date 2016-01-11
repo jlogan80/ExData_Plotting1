@@ -7,6 +7,7 @@ plot1 <- function() {
   data <- read.table(unz(temp, "household_power_consumption.txt"), sep = ";", na.strings = "?", header = TRUE)
   
   #subset the data to include only the first two days of February 2007
+  data$Date <- as.Date(data$Date, format = "%d/%m/%y")
   feb_data <- subset(data, Date == "1/2/2007" | Date == "2/2/2007")
   
   #create the histogram with red bars, a title of "Global Active Power", and a x-axis label of "Global Active Power (kilowatts)"
